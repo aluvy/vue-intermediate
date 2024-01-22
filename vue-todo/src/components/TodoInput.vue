@@ -14,13 +14,8 @@ export default {
   },
   methods: {
     addTodo: function() {
-      console.log(this.newTodoItem);
       if( this.newTodoItem !== '' ){
-        const obj = {
-          completed: false,
-          item: this.newTodoItem
-        };
-        localStorage.setItem( this.newTodoItem, JSON.stringify(obj) );
+        this.$emit('addTodo', this.newTodoItem);
         this.clearInput();
       } else {
         alert('값을 입력하세요');
@@ -35,7 +30,7 @@ export default {
 
 <style scoped>
 fieldset { display: flex; border-radius: 0.8rem; background: #fff; overflow: hidden; }
-input { flex: 1 1 calc(100% - 5rem); max-width: calc(100% - 5rem); padding: 0 1.2rem; }
+input { flex: 1 1 calc(100% - 5rem); max-width: calc(100% - 5rem); padding: 0 1.6rem; }
 button { flex: 1 1 5rem; width: 5rem; background: #00c471; color: #fff; }
 input,
 button { height: 5rem; }

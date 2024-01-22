@@ -1,9 +1,9 @@
 <template>
   <div class="list">
     <ul>
-      <li v-for="(a, i) in todoItems" v-bind:key="i" class="shadow">
+      <li v-for="(a, i) in propsdata" v-bind:key="i" class="shadow">
         <span class="chkBtn" v-bind:class="{ checkBtnCompleted: a.completed }">
-          <input :id="`chk_${i}`" type="checkbox" v-on:click="toggleCompete(a, i)">
+          <input :id="`chk_${i}`" type="checkbox" v-on:click="toggleComplete(a, i)">
           <label :for="`chk_${i}`"><i class="fa-solid fa-check"></i></label>
         </span>
         <p v-bind:class="{ textCompleted: a.completed }">{{ a.item }}</p>
@@ -17,30 +17,16 @@
 
 <script>
 export default {
-  data: function() {
-    return {
-      todoItems: [],
-    }
-  },
   methods: {
     removeTodo: function(a, i) {
-      console.log(a, i, this.todoItems);
-      localStorage.removeItem(a.item);
-      this.todoItems.splice(i, 1);
+      this.$emit('removeTodo', a, i);
     },
-    toggleCompete: function(a, i) {
-      a.completed = !a.completed;
-      localStorage.setItem(a.item, JSON.stringify(a));
-      this.todoItems[i] = a;
+    toggleComplete: function(a, i) {
+      this.$emit('toggleComplete', a, i);
     }
   },
-  created: function() {
-    if( localStorage.length > 0 ){
-      for(var i=0; i<localStorage.length; i++){
-        let item = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        this.todoItems.push(item);
-      }
-    }
+  props: {
+    propsdata: Array
   }
 }
 </script>
