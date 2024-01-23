@@ -2,7 +2,7 @@
   <div id="app">
     <TodoHeader></TodoHeader>
     <TodoInput v-on:addTodo="addTodo"></TodoInput>
-    <TodoList v-bind:propsdata="todoItems" v-on:removeTodo="removeTodo" v-on:toggleComplete="toggleComplete"></TodoList>
+    <TodoList :propsdata="todoItems" v-on:removeTodo="removeTodo" v-on:toggleComplete="toggleComplete"></TodoList>
     <TodoFooter v-on:clearTodo="clearTodo"></TodoFooter>
   </div>
 </template>
@@ -23,38 +23,32 @@ export default {
   },
   methods: {
     addTodo: function(newTodoItem) {
-      const obj = {
-        completed: false,
-        item: newTodoItem
-      };
+      const time = new Date().toJSON().replaceAll(/[^0-9]/g, '');
+      const obj = { time: time, completed: false, item: newTodoItem }
       this.todoItems.push(obj);
       this.setLocalStorage();
     },
-    removeTodo: function(a, i) {
-      localStorage.removeItem(a.item);
-      this.todoItems.splice(i, 1);
+    removeTodo: function(a) {
+      const idx = this.todoItems.indexOf(a);
+      this.todoItems.splice(idx, 1);
       this.setLocalStorage();
     },
-    toggleComplete: function(a, i) {
-      this.todoItems[i].completed = !this.todoItems[i].completed;
+    toggleComplete: function(a) {
+      const idx = this.todoItems.indexOf(a);
+      this.todoItems[idx].completed = !this.todoItems[idx].completed;
       this.setLocalStorage();
     },
     clearTodo: function() {
       this.todoItems = [];
-      localStorage.clear();
+      this.setLocalStorage();
     },
     setLocalStorage: function() {
-      this.todoItems.forEach( a => {
-        localStorage.setItem(a.item, JSON.stringify(a));
-      })
+      localStorage.setItem('todoItems', JSON.stringify(this.todoItems));
     }
   },
   created: function() {
-    if( localStorage.length > 0 ){
-      for(var i=0; i<localStorage.length; i++){
-        let item = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        this.todoItems.push(item);
-      }
+    if ( localStorage.getItem('todoItems') !== null ){
+      this.todoItems = JSON.parse(localStorage.getItem('todoItems'));
     }
   },
   components: {
