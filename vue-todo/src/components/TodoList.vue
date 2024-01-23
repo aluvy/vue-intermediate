@@ -1,32 +1,33 @@
 <template>
   <div class="list">
-    <ul>
-      <li v-for="(a, i) in propsdata" v-bind:key="i" class="shadow">
+    <TransitionGroup name="list" tag="ul">
+      <li v-for="(a, i) in propsdata" :key="i" class="shadow">
         <span class="chkBtn" v-bind:class="{ checkBtnCompleted: a.completed }">
-          <input :id="`chk_${i}`" type="checkbox" v-on:click="toggleComplete(a, i)">
+          <input :id="`chk_${i}`" type="checkbox" @click="toggleComplete(a)">
           <label :for="`chk_${i}`"><i class="fa-solid fa-check"></i></label>
         </span>
         <p v-bind:class="{ textCompleted: a.completed }">{{ a.item }}</p>
-        <button type="button" class="removeBtn" v-on:click="removeTodo(a, i)" aria-label="delete" title="delete">
+        <button type="button" class="removeBtn" @click="removeTodo(a)" aria-label="delete" title="delete">
           <i class="fa-regular fa-trash-can"></i>
         </button>
       </li>
-    </ul>
+    </TransitionGroup>
+
   </div>
 </template>
 
 <script>
 export default {
   methods: {
-    removeTodo: function(a, i) {
-      this.$emit('removeTodo', a, i);
+    removeTodo: function(a) {
+      this.$emit('removeTodo', a);
     },
-    toggleComplete: function(a, i) {
-      this.$emit('toggleComplete', a, i);
+    toggleComplete: function(a) {
+      this.$emit('toggleComplete', a);
     }
   },
   props: {
-    propsdata: Array
+    propsdata: Array,
   }
 }
 </script>
@@ -45,4 +46,13 @@ export default {
 
 .checkBtnCompleted { color: #b3adad; }
 .textCompleted { text-decoration: line-through; color: #b3adad; }
+
+/* .list-item {
+  display: inline-block;
+  margin-right: 10px;
+} */
+.list-enter-active,
+.list-leave-active { transition: all .5s ease; }
+.list-enter,
+.list-leave-to { opacity: 0; transform: translateX(30px); }
 </style>
