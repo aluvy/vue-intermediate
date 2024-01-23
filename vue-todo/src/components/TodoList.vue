@@ -1,7 +1,7 @@
 <template>
   <div class="list">
     <TransitionGroup name="list" tag="ul">
-      <li v-for="(a, i) in propsdata" :key="i" class="shadow">
+      <li v-for="(a, i) in propsdata" :key="a.time" class="shadow">
         <span class="chkBtn" v-bind:class="{ checkBtnCompleted: a.completed }">
           <input :id="`chk_${i}`" type="checkbox" @click="toggleComplete(a)">
           <label :for="`chk_${i}`"><i class="fa-solid fa-check"></i></label>
@@ -34,7 +34,8 @@ export default {
 
 <style scoped>
 .list { margin: 2rem 0; }
-.list ul li { display: flex; justify-content: space-between; gap: 0.6rem; padding: 1.2rem; background: #fff; border-radius: 1rem; }
+.list ul { position: relative; }
+.list ul li { display: flex; width: 100%; justify-content: space-between; gap: 0.6rem; padding: 1.2rem; background: #fff; border-radius: 1rem; transition: all .5s ease;  }
 .list ul li + li { margin-top: 0.6rem; }
 .list ul li p { flex: 1 1 auto; margin-right: auto; line-height: 3rem; }
 .list ul li .chkBtn { position: relative; flex: 0 0 3rem; max-width: 3rem; height: 3rem;  }
@@ -55,4 +56,5 @@ export default {
 .list-leave-active { transition: all .5s ease; }
 .list-enter,
 .list-leave-to { opacity: 0; transform: translateX(30px); }
+.list-leave-active { position: absolute; }
 </style>

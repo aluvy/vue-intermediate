@@ -2,7 +2,7 @@
   <div>
 
     <fieldset class="shadow">
-      <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
+      <input type="text" v-model="newTodoItem" v-on:keypress.enter="addTodo">
       <button type="button" v-on:click="addTodo" title="add" aria-label="add">
         <i class="fa-solid fa-plus"></i>
       </button>
