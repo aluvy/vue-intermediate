@@ -31,7 +31,7 @@ export default {
 <style scoped>
 fieldset { display: flex; border-radius: 0.8rem; background: #fff; overflow: hidden; }
 input { flex: 1 1 calc(100% - 5rem); max-width: calc(100% - 5rem); padding: 0 1.6rem; }
-button { flex: 1 1 5rem; width: 5rem; background: #00c471; color: #fff; }
+button { flex: 1 1 5rem; width: 5rem; background: #00c471; color: #fff; outline-offset: -1px; }
 input,
 button { height: 5rem; }
 </style>
