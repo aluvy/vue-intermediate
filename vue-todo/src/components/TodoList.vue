@@ -1,7 +1,7 @@
 <template>
   <div class="list">
-    <TransitionGroup name="list" tag="ul">
-      <li v-for="(a, i) in propsdata" :key="a.time" class="shadow">
+    <TransitionGroup name="list" tag="ul" v-if="propsdata.length">
+      <li v-for="(a, i) in propsdata" :key="a.time" class="shadow" :class="{ completed: a.completed }">
         <span class="chkBtn" v-bind:class="{ checkBtnCompleted: a.completed }">
           <input :id="`chk_${i}`" type="checkbox" @click="toggleComplete(a)">
           <label :for="`chk_${i}`"><i class="fa-solid fa-check"></i></label>
@@ -12,7 +12,7 @@
         </button>
       </li>
     </TransitionGroup>
-
+    <div class="NoItems" v-else>no items</div>
   </div>
 </template>
 
@@ -40,21 +40,18 @@ export default {
 .list ul li p { flex: 1 1 auto; margin-right: auto; line-height: 3rem; }
 .list ul li .chkBtn { position: relative; flex: 0 0 3rem; max-width: 3rem; height: 3rem;  }
 .list ul li .chkBtn input { position: absolute; left: 0; top: 0; width: 100%; height: 100%; border: 0 none; z-index: 0; }
-
 .list ul li .chkBtn label { position: absolute; left: 0; top: 0; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 1; }
 .list ul li .removeBtn { flex: 0 0 3rem; max-width: 3rem; height: 3rem; opacity: .4; }
 .list ul li .removeBtn:focus { opacity: 1; }
+.list ul li.completed .chkBtn label { color: #b3adad; }
+.list ul li.completed p { text-decoration: line-through; color: #b3adad; }
+.list .NoItems { font-size: 1.4rem; padding: 3rem 0; text-align: center; opacity: .3; }
 
-.checkBtnCompleted { color: #b3adad; }
-.textCompleted { text-decoration: line-through; color: #b3adad; }
-
-/* .list-item {
-  display: inline-block;
-  margin-right: 10px;
-} */
+/* transition */
 .list-enter-active,
 .list-leave-active { transition: all .5s ease; }
 .list-enter,
 .list-leave-to { opacity: 0; transform: translateX(30px); }
 .list-leave-active { position: absolute; }
+
 </style>
