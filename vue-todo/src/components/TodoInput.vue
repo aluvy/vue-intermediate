@@ -1,29 +1,55 @@
 <template>
-  <fieldset class="shadow">
-    <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
-    <button type="button" v-on:click="addTodo" title="add" aria-label="add"><i class="fa-solid fa-plus"></i></button>
-  </fieldset>
+  <div>
+
+    <fieldset class="shadow">
+      <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
+      <button type="button" v-on:click="addTodo" title="add" aria-label="add">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+    </fieldset>
+
+    <Teleport to="body">
+      <ModalPopup :show="showModal" @close="showModal=false">
+        <template #header>
+          <h3>warning!</h3>
+        </template>
+        <template #body>
+          <p>Enter the content.</p>
+        </template>
+      </ModalPopup>
+    </Teleport>
+
+  </div>
 </template>
 
 <script>
+import ModalPopup from './common/ModalPopup.vue'
+import Teleport from 'vue2-teleport';
+
 export default {
   data: function() {
     return {
       newTodoItem: '',
+      showModal: false,
     }
   },
   methods: {
     addTodo: function() {
-      if( this.newTodoItem !== '' ){
+      if( this.newTodoItem.trim() !== '' ){
         this.$emit('addTodo', this.newTodoItem);
-        this.clearInput();
       } else {
-        alert('값을 입력하세요');
+        this.showModal = !this.showModal;
+        // alert('type sth');
       }
+      this.clearInput();
     },
     clearInput: function() {
       this.newTodoItem = '';
     }
+  },
+  components: {
+    ModalPopup,
+    Teleport
   }
 }
 </script>
