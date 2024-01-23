@@ -37,9 +37,11 @@ export default {
 .list ul li + li { margin-top: 0.6rem; }
 .list ul li p { flex: 1 1 auto; margin-right: auto; line-height: 3rem; }
 .list ul li .chkBtn { position: relative; flex: 0 0 3rem; max-width: 3rem; height: 3rem;  }
-.list ul li .chkBtn input { position: absolute; left: 0; top: 0; width: 100%; height: 100%; border: 0 none; z-index: 0; opacity: 0; }
+.list ul li .chkBtn input { position: absolute; left: 0; top: 0; width: 100%; height: 100%; border: 0 none; z-index: 0; }
+
 .list ul li .chkBtn label { position: absolute; left: 0; top: 0; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; z-index: 1; }
 .list ul li .removeBtn { flex: 0 0 3rem; max-width: 3rem; height: 3rem; opacity: .4; }
+.list ul li .removeBtn:focus { opacity: 1; }
 
 .checkBtnCompleted { color: #b3adad; }
 .textCompleted { text-decoration: line-through; color: #b3adad; }
