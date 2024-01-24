@@ -19,10 +19,10 @@
 <script>
 export default {
   methods: {
-    removeTodo: function(a) {
+    removeTodo (a) {
       this.$emit('removeTodo', a);
     },
-    toggleComplete: function(a) {
+    toggleComplete (a) {
       this.$emit('toggleComplete', a);
     }
   },
@@ -53,5 +53,4 @@ export default {
 .list-enter,
 .list-leave-to { opacity: 0; transform: translateX(30px); }
 .list-leave-active { position: absolute; }
-
 </style>
