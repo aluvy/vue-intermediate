@@ -3,7 +3,7 @@
 
     <fieldset class="shadow">
       <input type="text" v-model="newTodoItem" v-on:keypress.enter="addTodo">
-      <button type="button" v-on:click="addTodo" title="add" aria-label="add">
+      <button type="button" v-on:click="addTodo" title="add" aria-label="add" ref="focusBtn">
         <i class="fa-solid fa-plus"></i>
       </button>
     </fieldset>
@@ -27,23 +27,23 @@ import ModalPopup from './common/ModalPopup.vue'
 import Teleport from 'vue2-teleport';
 
 export default {
-  data: function() {
+  data () {
     return {
       newTodoItem: '',
       showModal: false,
+      focusBtn: this.$refs.focusBtn,
     }
   },
   methods: {
-    addTodo: function() {
+    addTodo () {
       if( this.newTodoItem.trim() !== '' ){
         this.$emit('addTodo', this.newTodoItem);
       } else {
         this.showModal = !this.showModal;
-        // alert('type sth');
       }
       this.clearInput();
     },
-    clearInput: function() {
+    clearInput () {
       this.newTodoItem = '';
     }
   },
