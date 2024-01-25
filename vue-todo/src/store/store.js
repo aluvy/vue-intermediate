@@ -17,6 +17,11 @@ export const store = new Vuex.Store({
   state: {
     todoItems: storage.fetch(),
   },
+  getters: {
+    getTodoItems(state) {
+      return state.todoItems;
+    },
+  },
   mutations: {
     addTodo(state, payload) {
       const time = new Date().toJSON().replaceAll(/[^0-9]/g, '');
@@ -42,5 +47,4 @@ export const store = new Vuex.Store({
       localStorage.setItem('todoItems', JSON.stringify(state.todoItems));
     },
   },
-  getters: {},
 });
