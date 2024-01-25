@@ -2,8 +2,8 @@
   <div>
 
     <fieldset class="shadow">
-      <input type="text" v-model="newTodoItem" v-on:keypress.enter="addTodo">
-      <button type="button" v-on:click="addTodo" title="add" aria-label="add" ref="focusBtn">
+      <input type="text" v-model="newTodoItem" v-on:keypress.enter="setAddTodo">
+      <button type="button" v-on:click="setAddTodo" title="add" aria-label="add" ref="focusBtn">
         <i class="fa-solid fa-plus"></i>
       </button>
     </fieldset>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import ModalPopup from './common/ModalPopup.vue'
 import Teleport from 'vue2-teleport';
 
@@ -35,16 +36,14 @@ export default {
     }
   },
   methods: {
-    addTodo () {
+    ...mapMutations(['addTodo']),
+    setAddTodo () {
       const text = this.newTodoItem.trim();
       if( text !== '' ){
-        this.$store.commit('addTodo', { newTodoItem: text });
+        this.addTodo({ newTodoItem: text });
       } else {
         this.showModal = !this.showModal;
       }
-      this.clearInput();
-    },
-    clearInput () {
       this.newTodoItem = '';
     }
   },
