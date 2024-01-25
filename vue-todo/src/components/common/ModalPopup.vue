@@ -43,7 +43,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .modal-mask { position: fixed; left: 0; top: 0; display: flex; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); transition: opacity .3s ease; z-index: 9998; }
 .modal-container { position: relative; width: 30rem; margin: auto; padding: 2rem 3rem; background-color: #fff; border-radius: 2px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33); transition: all .3s ease; }
 
